@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    name: Build for windows
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+    
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          allowDirtyBuild: true
+          targetPlatform: StandaloneWindows64
