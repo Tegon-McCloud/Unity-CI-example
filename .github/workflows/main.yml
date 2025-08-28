@@ -13,7 +13,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-    
+
+      - name: Cache library
+        uses: actions/cache@v4
+          with:
+            path: Library
+            key: Library-${{ matrix.targetPlatform }}
+            restore-keys: Library-
+      
       - name: Build project
         uses: game-ci/unity-builder@v4
         env:
@@ -23,3 +30,9 @@ jobs:
         with:
           allowDirtyBuild: true
           targetPlatform: StandaloneWindows64
+      
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
