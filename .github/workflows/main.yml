@@ -16,10 +16,10 @@ jobs:
 
       - name: Cache library
         uses: actions/cache@v4
-          with:
-            path: Library
-            key: Library-${{ matrix.targetPlatform }}
-            restore-keys: Library-
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
       
       - name: Build project
         uses: game-ci/unity-builder@v4
